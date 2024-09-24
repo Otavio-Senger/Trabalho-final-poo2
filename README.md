@@ -1,4 +1,4 @@
-Otávio Senger
-Fernanda Chmiel
-Matheus Cruz
+Otávio Senger;
+Fernanda Chmiel;
+Matheus Cruz;
 David Juan
