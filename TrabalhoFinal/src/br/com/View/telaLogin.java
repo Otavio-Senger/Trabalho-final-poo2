@@ -40,6 +40,7 @@ public class telaLogin extends javax.swing.JFrame {
             if(rs.next()){
             telaPrincipal principal = new telaPrincipal();
             principal.setVisible(true);//mudamos a visualização da tela 
+            dispose();
             }else{
             JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos!!!");
             }
@@ -241,6 +242,7 @@ public class telaLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new telaLogin().setVisible(true);
+                
             }
         });
     }
