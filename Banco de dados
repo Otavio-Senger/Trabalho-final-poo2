@@ -32,3 +32,6 @@ select * from usuarios;
 insert into usuarios(id, nome, email, nome_usuario, senha)
 values(1, 'David j', 'davidsx999@gmail.com', 'davidzao','123456');
 select * from usuarios;
+
+insert into clientes(id, nome, endereco, telefone, email, cpf_cnpj)
+values(1, 'otavio','Carioca','51996760305','otaviosengerprometa@gmail.com','05399964082');
