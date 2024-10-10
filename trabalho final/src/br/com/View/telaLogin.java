@@ -6,6 +6,8 @@
 package br.com.View;
 
 import br.com.DAO.conexaoDAO;
+import br.com.DAO.usuarioDAO;
+import br.com.DTO.usuarioDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,31 +28,7 @@ public class telaLogin extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     
-    public void logar(){
-        String sql = "select * from usuarios where nome_usuario = ? and senha = ?";
-        try{
-            //preparar a consulta no banco, em função do que foi inserido nas caixas de texto
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtLogin.getText());
-            pst.setString(2, txtSenha.getText());
-            
-            //executar a query
-            rs = pst.executeQuery();
-            
-            if(rs.next()){
-            telaPrincipal principal = new telaPrincipal();
-            principal.setVisible(true);//mudamos a visualização da tela 
-            dispose();
-            }else{
-            JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos!!!");
-            }
-            
-            
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Tela de login" + e);
-        }
-        
-    }
+   
     
     
     public telaLogin() {
@@ -59,17 +37,13 @@ public class telaLogin extends javax.swing.JFrame {
         System.out.println(conexao);
         
           if (conexao != null) {
-              ImageIcon imagm = new ImageIcon("C:\\Users\\aluno.saolucas\\Documents\\NetBeansProjects\\Trabalho-final-poo2-main\\TrabalhoFinal\\src\\img\\certo.png");
+              ImageIcon imagm = new ImageIcon("src/img/certo.png");
               lblStatus.setIcon(imagm);
           }else{
-              ImageIcon imagem = new ImageIcon("C:\\Users\\aluno.saolucas\\Documents\\NetBeansProjects\\Trabalho-final-poo2-main\\TrabalhoFinal\\src\\img\\erro.png");
+              ImageIcon imagem = new ImageIcon("src/img/erro.png");
               lblStatus.setIcon(imagem);
               
-              //if (conexao != null) {
-              //lblStatus.setText("Conectado");
-              //} else {
-              //lblStatus.setText("Desconectado");
-              //}
+             
               
         }
     }
@@ -207,8 +181,20 @@ public class telaLogin extends javax.swing.JFrame {
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
        
-        logar();
+       String loginUsuario = txtLogin.getText();
+       String senhaUsuario = txtSenha.getText();
+       
+        usuarioDTO udto = new usuarioDTO();
         
+        udto.setLoginUsuario(loginUsuario);
+        udto.setSenhaUsuario(senhaUsuario);
+        
+        usuarioDAO udao = new usuarioDAO();
+        
+        udao.logar(udto);
+        this.dispose();//fechar a tela de login
+        
+       
     }//GEN-LAST:event_btnLogarActionPerformed
 
     /**

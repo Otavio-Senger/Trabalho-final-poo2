@@ -36,39 +36,9 @@ public class telaUsuario extends javax.swing.JInternalFrame {
     }
     
     //método pesquisar
-    public void pesquisar(){
-     String sql = "select * from usuarios where id = ?";
-     
-     try{
-         pst = conexao.prepareStatement(sql);
-         pst.setString(1, txtIDusuario.getText());
-         rs = pst.executeQuery();
-         
-         if(rs.next()){
-             txtNome.setText(rs.getString(2));
-             txtEmailUsuario.setText(rs.getString(3));
-             txtNomeDeUsuario.setText(rs.getString(4));
-             txtSenha.setText(rs.getString(5));
-         }else{
-         JOptionPane.showMessageDialog(null, "Usuário não encontrado!!!");
-         limpar();
-         }
-         
-         
-     }catch(Exception e){
-         JOptionPane.showMessageDialog(null, "tela usuários" + e);
-     }
-     
-    }
     
-    public void limpar(){
-    txtIDusuario.setText(null);
-    txtNome.setText(null);
-    txtEmailUsuario.setText(null);
-    txtNomeDeUsuario.setText(null);
-    txtSenha.setText(null);
-    }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,8 +89,18 @@ public class telaUsuario extends javax.swing.JInternalFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -147,12 +127,13 @@ public class telaUsuario extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -187,7 +168,7 @@ public class telaUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpar))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -195,14 +176,40 @@ public class telaUsuario extends javax.swing.JInternalFrame {
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         
-        limpar();
+      int idUsuario = Integer.parseInt(txtIDusuario.getText());
+      
+      usuarioDTO udto = new usuarioDTO();
+      udto.setIdUsuario(idUsuario);
+      
+      usuarioDAO udao = new usuarioDAO();
+      udao.deletar(udto);
+      
         
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         
         //chamar método pesquisar
-        pesquisar();
+          int idUsuario = Integer.parseInt(txtIDusuario.getText());
+        String nomeUsuario = txtNome.getText();
+        String loginUsuario = txtNomeDeUsuario.getText();
+        String emailUsuario = txtEmailUsuario.getText();
+        String senhaUsuario = txtSenha.getText();
+        
+        usuarioDTO udto = new usuarioDTO();
+        
+        
+        //transferência de dados para usuarioDTO
+        udto.setIdUsuario(idUsuario);
+        udto.setNomeUsuario(nomeUsuario);
+        udto.setEmailUsuario(emailUsuario);
+        udto.setLoginUsuario(loginUsuario);
+        udto.setSenhaUsuario(senhaUsuario);
+        
+        //criação do obj da classe DAO para inserir o usuario
+        usuarioDAO udao = new usuarioDAO();
+            udao.pesquisar(udto);
+           
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
@@ -234,21 +241,51 @@ public class telaUsuario extends javax.swing.JInternalFrame {
         
         //criação do obj da classe DAO para inserir o usuario
         usuarioDAO udao = new usuarioDAO();
-        
-        try {
             udao.IncluirUsuario(udto);
-            if(rs.next()){
-            JOptionPane.showMessageDialog(null, "Usuário inserido com sucesso!!!");
-            }
-            limpar();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Este ID de usuário já existe!!!" + e);
-        }
+          
         
          
                 
         
     }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        
+        int idUsuario = Integer.parseInt(txtIDusuario.getText());
+        String nomeUsuario = txtNome.getText();
+        String loginUsuario = txtNomeDeUsuario.getText();
+        String emailUsuario = txtEmailUsuario.getText();
+        String senhaUsuario = txtSenha.getText();
+        
+        usuarioDTO udto = new usuarioDTO();
+        
+        
+        //transferência de dados para usuarioDTO
+        udto.setIdUsuario(idUsuario);
+        udto.setNomeUsuario(nomeUsuario);
+        udto.setEmailUsuario(emailUsuario);
+        udto.setLoginUsuario(loginUsuario);
+        udto.setSenhaUsuario(senhaUsuario);
+        
+        //criação do obj da classe DAO para inserir o usuario
+        usuarioDAO udao = new usuarioDAO();
+            udao.editar(udto);
+           
+        
+        
+        
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        
+        int idUsuario = Integer.parseInt(txtIDusuario.getText());
+        usuarioDTO udto = new usuarioDTO();
+        udto.setIdUsuario(idUsuario);
+        usuarioDAO udao = new usuarioDAO();
+        udao.deletar(udto);
+        
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -262,10 +299,10 @@ public class telaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField txtEmailUsuario;
-    private javax.swing.JTextField txtIDusuario;
-    private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtNomeDeUsuario;
-    private javax.swing.JTextField txtSenha;
+    public static javax.swing.JTextField txtEmailUsuario;
+    public static javax.swing.JTextField txtIDusuario;
+    public static javax.swing.JTextField txtNome;
+    public static javax.swing.JTextField txtNomeDeUsuario;
+    public static javax.swing.JTextField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
