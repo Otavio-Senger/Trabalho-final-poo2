@@ -9,10 +9,11 @@ Otávio Porto Senger.
 - Descrição do projeto
 
 # Descrição do Projeto
-Este projeto é um sistema de gerenciamento de tarefas que permite aos usuários pesquisar,criar, editar,
+Este projeto é um sistema de gerenciamento de tarefas que permite aos usuários pesquisar, criar, editar,
 excluir e visualizar suas tarefas. O objetivo é fornecer uma ferramenta intuitiva e eficiente para 
 organizar e acompanhar atividades diárias com interface gráfica para gerenciamento de usuários e 
 clientes.
+
 O banco de dados local está gerido com MySQL, acessado via MySQL Workbench.
 Onde no Banco de Dados:
 - A tabela usuários contém: o id, nome, email, nome_usuario, senha.
