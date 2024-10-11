@@ -65,7 +65,8 @@ cobertura de testes, versões de software, licenças, entre outros.
 
 # Contatos
 
-![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)
+- Gmail:
 - fernandachmiel@gmail.com
 - senger.otavio@gmail.com
+  ![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)
 
