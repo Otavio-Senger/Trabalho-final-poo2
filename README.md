@@ -38,9 +38,10 @@ cobertura de testes, versões de software, licenças, entre outros.
 # Funcionalidades Implementadas
 
 - Tela de Login
-  -Campos: nome de usuário e senha.
- - Descrição:
- - Permite a autenticação de usuários cadastrados no sistema, se caso falhe, aparecerá uma mensagem de erro.
+  
+  Campos: nome de usuário e senha.
+  Descrição:
+  Permite a autenticação de usuários cadastrados no sistema, se caso falhe, aparecerá uma mensagem de erro.
   
 - Tela Principal
   Descrição:
