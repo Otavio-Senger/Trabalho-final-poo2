@@ -112,6 +112,8 @@ public class usuarioDAO {
                 telaUsuario.txtNomeDeUsuario.setText(rs.getString(4));
                 telaUsuario.txtSenha.setText(rs.getString(5));
                 conexao.close();
+            }else{
+            JOptionPane.showMessageDialog(null, "Este usuário não existe!!!");
             }
             
         } catch (Exception e) {

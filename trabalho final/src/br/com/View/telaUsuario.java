@@ -64,6 +64,8 @@ public class telaUsuario extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(503, 310));
+
         jLabel1.setText("Nome de usuário");
 
         jLabel2.setText("ID");

@@ -5,8 +5,10 @@
  */
 package br.com.View;
 
+import br.com.DAO.clienteDAO;
 import br.com.DAO.conexaoDAO;
 import br.com.DAO.usuarioDAO;
+import br.com.DTO.clienteDTO;
 import br.com.DTO.usuarioDTO;
 import static br.com.View.telaUsuario.txtEmailUsuario;
 import static br.com.View.telaUsuario.txtIDusuario;
@@ -33,13 +35,10 @@ public class telaCliente extends javax.swing.JInternalFrame {
      */
     public telaCliente() {
         initComponents();
-        
+
         conexao = conexaoDAO.conector();
     }
-    
-    
-    
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,7 +66,7 @@ public class telaCliente extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(487, 302));
+        setPreferredSize(new java.awt.Dimension(487, 400));
 
         jLabel1.setText("ID");
 
@@ -187,7 +186,7 @@ public class telaCliente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCPFcnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -198,111 +197,100 @@ public class telaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-       
-         int idUsuario = Integer.parseInt(txtIDusuario.getText());
-        String nomeUsuario = txtNome.getText();
-        String loginUsuario = txtNomeDeUsuario.getText();
-        String emailUsuario = txtEmailUsuario.getText();
-        String senhaUsuario = txtSenha.getText();
-        
-        usuarioDTO udto = new usuarioDTO();
-        
-        
-        //transferência de dados para usuarioDTO
-        udto.setIdUsuario(idUsuario);
-        udto.setNomeUsuario(nomeUsuario);
-        udto.setEmailUsuario(emailUsuario);
-        udto.setLoginUsuario(loginUsuario);
-        udto.setSenhaUsuario(senhaUsuario);
-        
-        //criação do obj da classe DAO para inserir o usuario
-        usuarioDAO udao = new usuarioDAO();
-            udao.pesquisar(udto);
-        
+
+        int idCliente = Integer.parseInt(txtID.getText());
+        String nomeClientes = txtNome.getText();
+        String enderecoCliente = txtEndereco.getText();
+        String telefoneCliente = txtTelefone.getText();
+        String emailClientes = txtEmail.getText();
+        String cpf_cnpj = txtCPFcnpj.getText();
+
+        clienteDTO cdto = new clienteDTO();
+
+        cdto.setIdClientes(idCliente);
+        cdto.setNomeClientes(nomeClientes);
+        cdto.setEnderecoClientes(enderecoCliente);
+        cdto.setTelefoneClientes(telefoneCliente);
+        cdto.setEmailClientes(emailClientes);
+        cdto.setCpf_cnpjClientes(cpf_cnpj);
+
+        clienteDAO cdao = new clienteDAO();
+        cdao.pesquisar(cdto);
+
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        
-                
-        String idText = txtIDusuario.getText();
-        String nomeUsuario = txtNome.getText();
-        String loginUsuario = txtNomeDeUsuario.getText();
-        String emailUsuario = txtEmailUsuario.getText();
-        String senhaUsuario = txtSenha.getText();
-        
-        if( idText.isEmpty() || nomeUsuario.isEmpty() || loginUsuario.isEmpty() || emailUsuario.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Todos os campos devem ser obrigatórios", "erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        
-        }
-        int idUsuario = Integer.parseInt(idText);
-        
-        usuarioDTO udto = new usuarioDTO();
-        
-        
-        //transferência de dados para usuarioDTO
-        udto.setIdUsuario(idUsuario);
-        udto.setNomeUsuario(nomeUsuario);
-        udto.setEmailUsuario(emailUsuario);
-        udto.setLoginUsuario(loginUsuario);
-        udto.setSenhaUsuario(senhaUsuario);
-        
-        //criação do obj da classe DAO para inserir o usuario
-        usuarioDAO udao = new usuarioDAO();
-            udao.IncluirUsuario(udto);
-          
-        
-         
-                
-        
+
+        int idCliente = Integer.parseInt(txtID.getText());
+        String nomeClientes = txtNome.getText();
+        String enderecoCliente = txtEndereco.getText();
+        String telefoneCliente = txtTelefone.getText();
+        String emailClientes = txtEmail.getText();
+        String cpf_cnpj = txtCPFcnpj.getText();
+
+        clienteDTO cdto = new clienteDTO();
+
+        cdto.setIdClientes(idCliente);
+        cdto.setNomeClientes(nomeClientes);
+        cdto.setEnderecoClientes(enderecoCliente);
+        cdto.setTelefoneClientes(telefoneCliente);
+        cdto.setEmailClientes(emailClientes);
+        cdto.setCpf_cnpjClientes(cpf_cnpj);
+
+        clienteDAO cdao = new clienteDAO();
+        cdao.incluirClientes(cdto);
+
+
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+
+        int idCliente = Integer.parseInt(txtID.getText());
+        clienteDTO cdto = new clienteDTO();
+        cdto.setIdClientes(idCliente);
         
-        int idUsuario = Integer.parseInt(txtIDusuario.getText());
-        usuarioDTO udto = new usuarioDTO();
-        udto.setIdUsuario(idUsuario);
-        usuarioDAO udao = new usuarioDAO();
-        udao.deletar(udto);
-        
+        clienteDAO cdao = new clienteDAO();
+        cdao.deletarCliente(cdto);
+
+
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        
-        int idUsuario = Integer.parseInt(txtIDusuario.getText());
-        String nomeUsuario = txtNome.getText();
-        String loginUsuario = txtNomeDeUsuario.getText();
-        String emailUsuario = txtEmailUsuario.getText();
-        String senhaUsuario = txtSenha.getText();
-        
-        usuarioDTO udto = new usuarioDTO();
-        
-        
-        //transferência de dados para usuarioDTO
-        udto.setIdUsuario(idUsuario);
-        udto.setNomeUsuario(nomeUsuario);
-        udto.setEmailUsuario(emailUsuario);
-        udto.setLoginUsuario(loginUsuario);
-        udto.setSenhaUsuario(senhaUsuario);
-        
-        //criação do obj da classe DAO para inserir o usuario
-        usuarioDAO udao = new usuarioDAO();
-            udao.editar(udto);
-           
-        
-        
-        
-        
+
+        int idCliente = Integer.parseInt(txtID.getText());
+        String nomeClientes = txtNome.getText();
+        String enderecoCliente = txtEndereco.getText();
+        String telefoneCliente = txtTelefone.getText();
+        String emailClientes = txtEmail.getText();
+        String cpf_cnpj = txtCPFcnpj.getText();
+
+        clienteDTO cdto = new clienteDTO();
+
+        cdto.setIdClientes(idCliente);
+        cdto.setNomeClientes(nomeClientes);
+        cdto.setEnderecoClientes(enderecoCliente);
+        cdto.setTelefoneClientes(telefoneCliente);
+        cdto.setEmailClientes(emailClientes);
+        cdto.setCpf_cnpjClientes(cpf_cnpj);
+
+        clienteDAO cdao = new clienteDAO();
+        cdao.editarClientes(cdto);
+
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-         int idUsuario = Integer.parseInt(txtIDusuario.getText());
-      
-      usuarioDTO udto = new usuarioDTO();
-      udto.setIdUsuario(idUsuario);
-      
-      usuarioDAO udao = new usuarioDAO();
-      udao.deletar(udto);
+        
+        int idCliente = Integer.parseInt(txtID.getText());
+        clienteDTO cdto = new clienteDTO();
+        cdto.setIdClientes(idCliente);
+        
+        clienteDAO cdao = new clienteDAO();
+        cdao.limpar();
+        
+        
     }//GEN-LAST:event_btnLimparActionPerformed
 
 
@@ -318,11 +306,11 @@ public class telaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField txtCPFcnpj;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEndereco;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtTelefone;
+    public static javax.swing.JTextField txtCPFcnpj;
+    public static javax.swing.JTextField txtEmail;
+    public static javax.swing.JTextField txtEndereco;
+    public static javax.swing.JTextField txtID;
+    public static javax.swing.JTextField txtNome;
+    public static javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }
