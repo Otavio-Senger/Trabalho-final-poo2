@@ -40,27 +40,35 @@ cobertura de testes, versões de software, licenças, entre outros.
 - Tela de Login
   
   Campos: nome de usuário e senha.
+  
   Descrição:
   Permite a autenticação de usuários cadastrados no sistema, se caso falhe, aparecerá uma mensagem de erro.
   
 - Tela Principal
+  
   Descrição:
   É uma barra de menu que contém as opções: Cadastro, Relatório, Ajuda e Opções.
   Onde as principais funcionalidades estão no menu Cadastro que são: Cadastro de Usuários, Cadastro de Clientes e Agenda.
   
 - Tela de Cadastro de Usuários
+  
   Campos: nome, e-mail, nome de usuário e senha.
+  
   Descrição:
   Formulário com as funções de pesquisa, limpar, inserção, edição e exclusão de usuários no sistema.
   Tem validação para que não haja repetição de dados inseridos.
   
 - Tela de Cadastro de Clientes
+  
   Campos: nome, endereço, telefone, e-mail e CPF/CNPJ.
+  
   Descrição:
   Formulário com as funções de pesquisa, limpar, inserção, edição e exclusão de usuários no sistema.
 
 - Agenda para Registro de Compromissos.
+  
   Campos: data, horário, descrição e cliente associado
+  
   Descrição:
   Form JInternalFrame que faz o registro de compromissos ou eventos e a exibição em formato de tabela com opção de visualização por dia, semana ou mês.
 
