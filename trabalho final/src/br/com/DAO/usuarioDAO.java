@@ -55,6 +55,8 @@ public class usuarioDAO {
             if(rs.next()){
             telaPrincipal principal = new telaPrincipal();
             principal.setVisible(true);//mudamos a visualização da tela 
+            telaPrincipal.lblNome.setText(rs.getString(2));
+            
             }else{
             JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos!!!");
             }

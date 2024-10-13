@@ -5,6 +5,10 @@
  */
 package br.com.View;
 
+import javax.swing.JOptionPane;
+import java.text.DateFormat;
+import java.util.Date;
+
 /**
  *
  * @author aluno.saolucas
@@ -28,6 +32,8 @@ public class telaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         desktopPrincipal = new javax.swing.JDesktopPane();
+        lblNome = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         SubMenuUsuario = new javax.swing.JMenuItem();
@@ -35,12 +41,18 @@ public class telaPrincipal extends javax.swing.JFrame {
         SubMenuAgenda = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+        subMenuSobre = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TelaPrincipal");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         desktopPrincipal.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -48,15 +60,22 @@ public class telaPrincipal extends javax.swing.JFrame {
         desktopPrincipal.setLayout(desktopPrincipalLayout);
         desktopPrincipalLayout.setHorizontalGroup(
             desktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 503, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         desktopPrincipalLayout.setVerticalGroup(
             desktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGap(0, 407, Short.MAX_VALUE)
         );
+
+        lblNome.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblNome.setText("Nome");
+
+        lblData.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblData.setText("Date");
 
         jMenu1.setText("Cadastro");
 
+        SubMenuUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK));
         SubMenuUsuario.setText("Usuário");
         SubMenuUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,6 +84,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(SubMenuUsuario);
 
+        SubMenuCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
         SubMenuCliente.setText("Cliente");
         SubMenuCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +93,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(SubMenuCliente);
 
+        SubMenuAgenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK));
         SubMenuAgenda.setText("Agenda");
         jMenu1.add(SubMenuAgenda);
 
@@ -82,10 +103,20 @@ public class telaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Ajuda");
+
+        subMenuSobre.setText("Sobre");
+        subMenuSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuSobreActionPerformed(evt);
+            }
+        });
+        jMenu3.add(subMenuSobre);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Opções");
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItem1.setText("Sair");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,10 +134,22 @@ public class telaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(desktopPrincipal)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(lblNome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 375, Short.MAX_VALUE)
+                .addComponent(lblData)
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPrincipal)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(desktopPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -145,6 +188,18 @@ public class telaPrincipal extends javax.swing.JFrame {
                 
         
     }//GEN-LAST:event_SubMenuClienteActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+
+        Date data = new Date();
+        DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
+        lblData.setText(formatador.format(data));
+        
+    }//GEN-LAST:event_formWindowActivated
+
+    private void subMenuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuSobreActionPerformed
+        JOptionPane.showMessageDialog(null, "Sistema de controle de agenda, \n com cadastros de usuários e clientes.\n\n disclina POOII");
+    }//GEN-LAST:event_subMenuSobreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,5 +247,8 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JLabel lblData;
+    public static javax.swing.JLabel lblNome;
+    private javax.swing.JMenuItem subMenuSobre;
     // End of variables declaration//GEN-END:variables
 }
