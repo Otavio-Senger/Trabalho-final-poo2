@@ -1,4 +1,3 @@
-
 create database projetofinal;
 use projetofinal;
 -- tabela usuarios
@@ -19,19 +18,26 @@ CREATE TABLE clientes (
     cpf_cnpj VARCHAR(20) NOT NULL UNIQUE
 );
 -- Tabela de Agenda
-CREATE TABLE agenda (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    data DATE NOT NULL,
-    hora TIME NOT NULL,
-    descricao TEXT,
-    cliente_id INT,
-    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
+create table agendas(
+idAgendamento int primary key,
+nomeCliente varchar (20) not null,
+conteudo varchar (100) not null,
+datas date,
+hora time
 );
-select * from usuarios;
+select * from agendas;
+
+
+select * from clientes;
 -- Inserir dados na tabela(create)
 insert into usuarios(id, nome, email, nome_usuario, senha)
-values(1, 'David j', 'davidsx999@gmail.com', 'davidzao','123456');
-select * from usuarios;
+values(1, 'Maria Fernanda', 'fernanda@gmail.com', 'fernanda','123456');
+select * from usuarios;	
+
+delete from usuarios where id = 2;
+
 
 insert into clientes(id, nome, endereco, telefone, email, cpf_cnpj)
 values(1, 'otavio','Carioca','51996760305','otaviosengerprometa@gmail.com','05399964082');
+
+delete from usuarios where id = 2;
