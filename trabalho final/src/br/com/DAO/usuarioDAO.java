@@ -5,6 +5,7 @@ import br.com.DTO.usuarioDTO;
 import br.com.View.telaPrincipal;
 import br.com.View.telaUsuario;
 import java.sql.*;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
@@ -160,11 +161,7 @@ public class usuarioDAO {
         
     }
 
-    
-    
-
-        
-    
+  
     
    
     

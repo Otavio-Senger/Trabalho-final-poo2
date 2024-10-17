@@ -75,7 +75,7 @@ public class telaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Cadastro");
 
-        SubMenuUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        SubMenuUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK));
         SubMenuUsuario.setText("Usuário");
         SubMenuUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +84,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(SubMenuUsuario);
 
-        SubMenuCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        SubMenuCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
         SubMenuCliente.setText("Cliente");
         SubMenuCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,8 +93,13 @@ public class telaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(SubMenuCliente);
 
-        SubMenuAgenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
+        SubMenuAgenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK));
         SubMenuAgenda.setText("Agenda");
+        SubMenuAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubMenuAgendaActionPerformed(evt);
+            }
+        });
         jMenu1.add(SubMenuAgenda);
 
         jMenuBar1.add(jMenu1);
@@ -116,7 +121,7 @@ public class telaPrincipal extends javax.swing.JFrame {
 
         jMenu4.setText("Opções");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItem1.setText("Sair");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,6 +205,12 @@ public class telaPrincipal extends javax.swing.JFrame {
     private void subMenuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuSobreActionPerformed
         JOptionPane.showMessageDialog(null, "Este projeto é um sistema de gerenciamento de tarefas que permite aos usuários pesquisar,\n criar, editar, excluir e visualizar suas tarefas. O objetivo é fornecer uma ferramenta intuitiva e eficiente\n para organizar e acompanhar atividades diárias com interface gráfica para gerenciamento de usuários e clientes.");
     }//GEN-LAST:event_subMenuSobreActionPerformed
+
+    private void SubMenuAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubMenuAgendaActionPerformed
+        telaAgenda telaagenda = new telaAgenda();
+        desktopPrincipal.add(telaagenda);
+        telaagenda.setVisible(true);
+    }//GEN-LAST:event_SubMenuAgendaActionPerformed
 
     /**
      * @param args the command line arguments
