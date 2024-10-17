@@ -63,7 +63,8 @@ public class clienteDAO {
                 conexao.close();
             } else {
                 JOptionPane.showMessageDialog(null, "Este cliente não existe!!!");
-//            limpar();
+            limpar();
+
             }
 
         } catch (Exception e) {
