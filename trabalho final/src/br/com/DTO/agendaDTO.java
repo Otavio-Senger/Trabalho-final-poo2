@@ -2,6 +2,7 @@
 package br.com.DTO;
 
 import java.util.Date;
+import javax.swing.table.DefaultTableModel;
 
 
 public class agendaDTO {
@@ -10,6 +11,12 @@ public class agendaDTO {
     private String conteudo;
     private Date data;
     private String hora;
+   
+
+    
+    
+    
+    
 
     public int getIDclienteAgenda() {
         return IDclienteAgenda;

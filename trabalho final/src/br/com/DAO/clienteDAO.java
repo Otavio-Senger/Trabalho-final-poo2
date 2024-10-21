@@ -2,11 +2,13 @@ package br.com.DAO;
 
 import br.com.DTO.clienteDTO;
 import br.com.View.telaCliente;
+import br.com.View.telaUsuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class clienteDAO {
 
@@ -35,6 +37,7 @@ public class clienteDAO {
                 pst.close();
                 JOptionPane.showMessageDialog(null, "Cliente inserido com sucesso!");
                 limpar();
+                preenchertabela();
             }
 
         } catch (SQLException e) {
@@ -92,6 +95,7 @@ public class clienteDAO {
                 conexao.close();
                 JOptionPane.showMessageDialog(null, "Cliente editado com sucesso!");
             limpar();
+            preenchertabela();
 
             }
         } catch (Exception e) {
@@ -112,6 +116,7 @@ public class clienteDAO {
                 conexao.close();
                 JOptionPane.showMessageDialog(null, "Cliente deletado com sucesso!");
             limpar();
+            preenchertabela();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Método deletar clientes" + e);
@@ -127,5 +132,29 @@ public class clienteDAO {
     telaCliente.txtTelefone.setText(null);
     telaCliente.txtNome.setText(null);
     }
-
+    
+    public void preenchertabela(){
+    String sql = "select nome from clientes";
+     conexao = new conexaoDAO().conector();
+     
+        try {
+            pst = conexao.prepareStatement(sql);
+        rs = pst.executeQuery();
+        
+        DefaultTableModel model = (DefaultTableModel) telaCliente.tabelaClientes.getModel();
+        model.setRowCount(0);  // Limpa a tabela antes de adicionar novos dados
+        
+     
+        while (rs.next()) {
+            model.addRow(new Object[]{
+                rs.getString("nome") 
+            });
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao preencher a tabela: " + e);
+        }
+    
+    }
+    
+    
 }

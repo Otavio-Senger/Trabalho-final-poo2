@@ -10,10 +10,12 @@ import br.com.DTO.agendaDTO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,19 +28,18 @@ public class telaAgenda extends javax.swing.JInternalFrame {
      */
     public telaAgenda() {
         initComponents();
-        
-          ImageIcon pesquisar = new ImageIcon("src/img/search.png");
+        ImageIcon pesquisar = new ImageIcon("src/img/search.png");
         btnPesquisar.setIcon(pesquisar);
-        
+
         ImageIcon excluir = new ImageIcon("src/img/delete_.png");
         btnExcluir.setIcon(excluir);
-        
+
         ImageIcon editar = new ImageIcon("src/img/edit.png");
         btnEditar.setIcon(editar);
-        
+
         ImageIcon limpar = new ImageIcon("src/img/limpar.png");
         btnLimpar.setIcon(limpar);
-    
+
     }
 
     /**
@@ -54,7 +55,7 @@ public class telaAgenda extends javax.swing.JInternalFrame {
         txtAreaConteudo = new javax.swing.JTextArea();
         btnAgendar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaClienteEconteudo = new javax.swing.JTable();
+        tabelaAgenda = new javax.swing.JTable();
         txtNomeCliente = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtHora = new javax.swing.JTextField();
@@ -83,19 +84,22 @@ public class telaAgenda extends javax.swing.JInternalFrame {
             }
         });
 
-        tabelaClienteEconteudo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
+        tabelaAgenda.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
             new String [] {
                 "Cliente", "Conteúdo", "Data", "Hora"
             }
         ));
-        jScrollPane2.setViewportView(tabelaClienteEconteudo);
+        tabelaAgenda.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tabelaAgendaAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane2.setViewportView(tabelaAgenda);
 
         jLabel1.setFont(new java.awt.Font("Artifakt Element", 0, 11)); // NOI18N
         jLabel1.setText("Nome do cliente");
@@ -106,13 +110,19 @@ public class telaAgenda extends javax.swing.JInternalFrame {
             }
         });
 
-        txtData.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtData.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel2.setFont(new java.awt.Font("Artifakt Element", 0, 11)); // NOI18N
         jLabel2.setText("Hora");
 
         jLabel3.setFont(new java.awt.Font("Artifakt Element", 0, 11)); // NOI18N
         jLabel3.setText("Data");
+
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +133,12 @@ public class telaAgenda extends javax.swing.JInternalFrame {
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
             }
         });
 
@@ -155,7 +171,7 @@ public class telaAgenda extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAgendar)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnExcluir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnLimpar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -290,6 +306,55 @@ public class telaAgenda extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+
+        int idAgendamento = Integer.parseInt(txtIdAgendamento.getText());
+        String nomeCliente = txtNomeCliente.getText();
+        String conteudo = txtAreaConteudo.getText();
+        String hora = txtHora.getText();
+        String dataString = txtData.getText();
+
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = null;
+        try {
+            data = formatador.parse(dataString);
+        } catch (ParseException ex) {
+            Logger.getLogger(telaAgenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        agendaDTO adto = new agendaDTO();
+
+        adto.setIDclienteAgenda(idAgendamento);
+        adto.setConteudo(conteudo);
+        adto.setCliente(nomeCliente);
+        adto.setData(data);
+        adto.setHora(hora);
+
+        agendaDAO adao = new agendaDAO();
+        adao.editar(adto);
+
+
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+
+        int idAgendamento = Integer.parseInt(txtIdAgendamento.getText());
+
+        agendaDTO adto = new agendaDTO();
+        adto.setIDclienteAgenda(idAgendamento);
+
+        agendaDAO adao = new agendaDAO();
+        adao.limpar();
+
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void tabelaAgendaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tabelaAgendaAncestorAdded
+       
+        agendaDAO adao = new agendaDAO();
+        adao.preencherTabela();
+        
+    }//GEN-LAST:event_tabelaAgendaAncestorAdded
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgendar;
@@ -304,7 +369,7 @@ public class telaAgenda extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tabelaClienteEconteudo;
+    public static javax.swing.JTable tabelaAgenda;
     public static javax.swing.JTextArea txtAreaConteudo;
     public static javax.swing.JTextField txtData;
     public static javax.swing.JTextField txtHora;
